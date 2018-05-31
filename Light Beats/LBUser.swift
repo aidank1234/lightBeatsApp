@@ -88,8 +88,8 @@ class LBUser {
         }
     }
     
-    class func checkSession(username: String, email: String, token: String, tokenLong: String, completionHandler: @escaping ([String]?, Error?) -> Void) {
-        let dict = ["username": username, "email": email, "token": token, "tokenLong": tokenLong]
+    class func checkSession(username: String, token: String, tokenLong: String, completionHandler: @escaping ([String]?, Error?) -> Void) {
+        let dict = ["username": username, "token": token, "tokenLong": tokenLong]
         
         Alamofire.request("\(Globals.baseURL)/user/checkSession", method: HTTPMethod.post, parameters: dict, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { (response) in
             if response.error == nil {
@@ -101,6 +101,45 @@ class LBUser {
                     stringArray[0] = json["token"]! as! String
                     stringArray[1] = json["tokenLong"]! as! String
                     completionHandler(stringArray, nil)
+                }
+                else {
+                    let badStatusError = NSError(domain: "", code: statusCode!, userInfo: nil)
+                    let stringArray = [""]
+                    completionHandler(stringArray, badStatusError)
+                }
+            }
+            else {
+                let stringArray = [""]
+                completionHandler(stringArray, response.error)
+            }
+        }
+    }
+    
+    class func addBeat(username: String, beatName: String, token: String, completionHandler: @escaping (Int?, Error?) -> Void) {
+        let dict = ["username": username, "token": token, "beatName": beatName]
+        
+        Alamofire.request("\(Globals.baseURL)/user/addBeat", method: HTTPMethod.post, parameters: dict, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { (response) in
+            if response.error == nil {
+                let statusCode = response.response?.statusCode
+                completionHandler(statusCode, nil)
+            }
+            else {
+                print(response.error!)
+                completionHandler(-1, response.error)
+            }
+        }
+    }
+    
+    class func getBeats(username: String, token: String, completionHandler: @escaping ([String?], Error?) -> Void) {
+        let dict = ["username": username, "token": token]
+        
+        Alamofire.request("\(Globals.baseURL)/user/getBeats", method: HTTPMethod.post, parameters: dict, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { (response) in
+            if response.error == nil {
+                let statusCode = response.response?.statusCode
+                if statusCode == 200 {
+                    let result = response.result.value
+                    let json = result as! NSDictionary
+                    completionHandler(json["beats"] as! [String], nil)
                 }
                 else {
                     let badStatusError = NSError(domain: "", code: statusCode!, userInfo: nil)

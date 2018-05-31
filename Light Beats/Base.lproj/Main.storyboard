@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="CeO-Xh-QHw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yRi-lK-fA7">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -12,23 +12,9 @@
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Light_Beats" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
-        <!--View Controller-->
         <scene sceneID="pCP-ng-vdS">
             <objects>
-                <viewController storyboardIdentifier="firstScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9WV-Ti-cgO" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="logInSignUp" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9WV-Ti-cgO" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HCe-nF-kHX"/>
                         <viewControllerLayoutGuide type="bottom" id="lyB-e6-aw1"/>
@@ -89,7 +75,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bA3-1J-tSc" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="832.79999999999995" y="120.98950524737631"/>
+            <point key="canvasLocation" x="487" y="121"/>
         </scene>
         <!--Log In-->
         <scene sceneID="b8J-W0-eRe">
@@ -213,6 +199,7 @@
                         <viewLayoutGuide key="safeArea" id="K9a-GM-wqs"/>
                     </view>
                     <connections>
+                        <outlet property="logInButton" destination="j2C-yY-LI8" id="mzT-Zk-L56"/>
                         <outlet property="passwordField" destination="VpS-dq-LcD" id="odL-8b-flF"/>
                         <outlet property="usernameField" destination="Xe5-zV-VGd" id="X12-xs-j7J"/>
                     </connections>
@@ -761,10 +748,189 @@
             </objects>
             <point key="canvasLocation" x="1585" y="806"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="4Fg-xp-pgl">
+            <objects>
+                <viewController id="AK9-t2-2d9" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HRa-XE-4Nr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="sHV-fl-Qq0"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aGv-9o-HLN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-426" y="566"/>
+        </scene>
+        <!--Search Light Beats-->
+        <scene sceneID="SHw-F9-Miq">
+            <objects>
+                <viewController id="CB3-QP-mIM" customClass="SearchBeats" customModule="Light_Beats" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="N41-SL-Z0m">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="w7v-f0-5oe">
+                                <rect key="frame" x="0.0" y="20" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qOd-Mv-83S">
+                                <rect key="frame" x="104" y="76" width="167" height="45"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Search by:">
+                                        <attributes>
+                                            <font key="NSFont" size="34" name="Futura-Medium"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="zn5-Uq-VMy">
+                                <rect key="frame" x="16" y="129" width="343" height="29"/>
+                                <segments>
+                                    <segment title="Song"/>
+                                    <segment title="Beat Name"/>
+                                </segments>
+                                <color key="tintColor" red="0.77647058820000003" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="segmentValueChanged:" destination="CB3-QP-mIM" eventType="valueChanged" id="vrs-7I-70k"/>
+                                </connections>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BkU-5G-mfg">
+                                <rect key="frame" x="60" y="311" width="255" height="45"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Search for Beats">
+                                        <attributes>
+                                            <font key="NSFont" size="34" name="Futura-Medium"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="zn5-Uq-VMy" firstAttribute="centerX" secondItem="BkU-5G-mfg" secondAttribute="centerX" id="1Kb-rc-o5y"/>
+                            <constraint firstItem="BkU-5G-mfg" firstAttribute="centerY" secondItem="N41-SL-Z0m" secondAttribute="centerY" id="2RF-nV-k2H"/>
+                            <constraint firstItem="qOd-Mv-83S" firstAttribute="centerX" secondItem="zn5-Uq-VMy" secondAttribute="centerX" id="5im-w2-dGa"/>
+                            <constraint firstItem="zn5-Uq-VMy" firstAttribute="top" secondItem="qOd-Mv-83S" secondAttribute="bottom" constant="8" symbolic="YES" id="CVn-Xu-IRo"/>
+                            <constraint firstItem="w7v-f0-5oe" firstAttribute="top" secondItem="3SW-Ym-3dq" secondAttribute="top" id="DQC-3G-Ytp"/>
+                            <constraint firstItem="w7v-f0-5oe" firstAttribute="centerX" secondItem="qOd-Mv-83S" secondAttribute="centerX" id="SD7-Ar-exo"/>
+                            <constraint firstItem="zn5-Uq-VMy" firstAttribute="leading" secondItem="N41-SL-Z0m" secondAttribute="leadingMargin" id="go3-c0-Rxk"/>
+                            <constraint firstItem="qOd-Mv-83S" firstAttribute="top" secondItem="w7v-f0-5oe" secondAttribute="bottom" id="grR-jV-klz"/>
+                            <constraint firstItem="w7v-f0-5oe" firstAttribute="leading" secondItem="N41-SL-Z0m" secondAttribute="leading" id="gri-0x-KYB"/>
+                            <constraint firstAttribute="trailing" secondItem="w7v-f0-5oe" secondAttribute="trailing" id="o4h-Ha-vK3"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3SW-Ym-3dq"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Search Light Beats" id="Z3x-JF-BZY"/>
+                    <connections>
+                        <outlet property="beatSearchBar" destination="w7v-f0-5oe" id="nIg-41-TWp"/>
+                        <outlet property="searchDisplayController" destination="lwN-IN-c8z" id="M5q-2F-W8B"/>
+                        <outlet property="segments" destination="zn5-Uq-VMy" id="dPE-HE-f4Y"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tCO-9y-5XP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="lwN-IN-c8z">
+                    <connections>
+                        <outlet property="delegate" destination="CB3-QP-mIM" id="l2o-MC-njZ"/>
+                        <outlet property="searchContentsController" destination="CB3-QP-mIM" id="cDW-XF-16R"/>
+                        <outlet property="searchResultsDataSource" destination="CB3-QP-mIM" id="L8F-kE-eKw"/>
+                        <outlet property="searchResultsDelegate" destination="CB3-QP-mIM" id="YFP-3O-rcU"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="2253.5999999999999" y="1505.3973013493255"/>
+        </scene>
+        <!--My Light Beats-->
+        <scene sceneID="av7-f4-nR4">
+            <objects>
+                <viewController id="uwh-nT-GU8" customClass="MyBeats" customModule="Light_Beats" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aVu-P5-EYf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VPH-lj-ptB">
+                                <rect key="frame" x="115" y="20" width="145" height="45"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="My Beats">
+                                        <attributes>
+                                            <font key="NSFont" size="34" name="Futura-Medium"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Gt4-lM-D9h">
+                                <rect key="frame" x="0.0" y="73" width="375" height="545"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="myCell" textLabel="NUY-77-0sH" rowHeight="70" style="IBUITableViewCellStyleDefault" id="Czr-7W-HvE">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="70"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Czr-7W-HvE" id="mlg-ML-hhL">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NUY-77-0sH">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="69.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Gt4-lM-D9h" firstAttribute="leading" secondItem="aVu-P5-EYf" secondAttribute="leading" id="Dmt-uJ-tGv"/>
+                            <constraint firstItem="Gt4-lM-D9h" firstAttribute="top" secondItem="VPH-lj-ptB" secondAttribute="bottom" constant="8" symbolic="YES" id="Fbo-Lt-mHE"/>
+                            <constraint firstItem="VPH-lj-ptB" firstAttribute="top" secondItem="2tC-Db-SC2" secondAttribute="top" id="LHY-sE-7ro"/>
+                            <constraint firstItem="VPH-lj-ptB" firstAttribute="centerX" secondItem="Gt4-lM-D9h" secondAttribute="centerX" id="aon-zl-OXU"/>
+                            <constraint firstItem="Gt4-lM-D9h" firstAttribute="bottom" secondItem="2tC-Db-SC2" secondAttribute="bottom" id="gRe-Dg-qWk"/>
+                            <constraint firstAttribute="trailing" secondItem="Gt4-lM-D9h" secondAttribute="trailing" id="vQy-s5-CSp"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2tC-Db-SC2"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="My Light Beats" id="NVv-xg-Iqp"/>
+                    <connections>
+                        <outlet property="myBeatsTableView" destination="Gt4-lM-D9h" id="36C-Yq-ZqB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Pj-AX-s6R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2254" y="748"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="loa-LB-Q99">
+            <objects>
+                <tabBarController storyboardIdentifier="beatSelector" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ffu-Qa-TMg" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="unW-Hm-vvT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="uwh-nT-GU8" kind="relationship" relationship="viewControllers" id="1wu-eL-qSe"/>
+                        <segue destination="CB3-QP-mIM" kind="relationship" relationship="viewControllers" id="0za-PY-hUO"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mEc-Al-X9e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1364" y="1320"/>
+        </scene>
         <!--Beat Upload2-->
         <scene sceneID="fZw-HV-9tn">
             <objects>
-                <viewController id="CeO-Xh-QHw" customClass="BeatUpload2" customModule="Light_Beats" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="beatUpload2" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CeO-Xh-QHw" customClass="BeatUpload2" customModule="Light_Beats" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sAz-Gx-dgg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -843,15 +1009,16 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yDa-tf-HJA">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="yDa-tf-HJA">
                                 <rect key="frame" x="16" y="109" width="343" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="bTc-CN-m3p"/>
                                 </constraints>
                                 <color key="textColor" red="0.77647058820000003" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
                                 <connections>
+                                    <action selector="searchSongEditingBegan:" destination="CeO-Xh-QHw" eventType="editingDidBegin" id="pug-5h-GfW"/>
                                     <action selector="searchSongEditingEnd:" destination="CeO-Xh-QHw" eventType="editingDidEnd" id="Zmu-wQ-TEl"/>
                                     <action selector="textFieldSearch:" destination="CeO-Xh-QHw" eventType="primaryActionTriggered" id="KzB-SD-kNP"/>
                                 </connections>
@@ -864,7 +1031,7 @@
                                 </constraints>
                                 <color key="textColor" red="0.77647058820000003" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" textContentType="tel"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NuN-S9-EIE">
                                 <rect key="frame" x="166" y="183" width="100" height="30"/>
@@ -874,7 +1041,7 @@
                                 </constraints>
                                 <color key="textColor" red="0.77647058820000003" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" textContentType="tel"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPq-4z-RNo">
                                 <rect key="frame" x="137" y="303" width="100" height="60"/>
@@ -886,6 +1053,7 @@
                                 <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="21"/>
                                 <state key="normal" title="Finish"/>
                                 <connections>
+                                    <action selector="finishButtonTapped:" destination="CeO-Xh-QHw" eventType="touchUpInside" id="RTG-Aq-ibb"/>
                                     <action selector="lightButtonTouchDown:" destination="Rfm-fS-h3d" eventType="touchDown" id="Rio-Ac-weq"/>
                                     <action selector="lightButtonTouchUp:" destination="Rfm-fS-h3d" eventType="touchUpInside" id="Gb6-jX-dXq"/>
                                 </connections>
@@ -942,12 +1110,103 @@
                         <viewLayoutGuide key="safeArea" id="u7h-23-Aho"/>
                     </view>
                     <connections>
+                        <outlet property="finishButton" destination="dPq-4z-RNo" id="Z3q-Un-ynK"/>
                         <outlet property="searchSongField" destination="yDa-tf-HJA" id="bNd-y1-RWP"/>
+                        <outlet property="songStartTimeMinutesField" destination="JO4-Gd-WEE" id="Nuu-1G-tIX"/>
+                        <outlet property="songStartTimeSecondsField" destination="NuN-S9-EIE" id="aOl-zD-ZTn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="86N-3A-w6z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4664.8000000000002" y="800.14992503748135"/>
+        </scene>
+        <!--First Screen-->
+        <scene sceneID="Kh4-Gy-KcI">
+            <objects>
+                <viewController storyboardIdentifier="firstScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yRi-lK-fA7" customClass="FirstScreen" customModule="Light_Beats" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IeP-Mc-shd"/>
+                        <viewControllerLayoutGuide type="bottom" id="PCI-zI-45R"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3rg-HG-fyX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rfA-Cf-lIz">
+                                <rect key="frame" x="0.0" y="567" width="375" height="100"/>
+                                <color key="backgroundColor" red="0.77647058820000003" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Sc6-qe-D7R"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="33"/>
+                                <state key="normal" title="CREATE LIGHT BEAT">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="createLightBeatPressed:" destination="yRi-lK-fA7" eventType="touchUpInside" id="Nmg-Z5-ryq"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" reversesTitleShadowWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8dH-Jq-AOB">
+                                <rect key="frame" x="0.0" y="470" width="375" height="100"/>
+                                <color key="backgroundColor" red="0.08235294118" green="0.39607843139999999" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="IPw-v1-vui"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="33"/>
+                                <state key="normal" title="HOST LIGHT BEAT">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="hostLightBeat:" destination="yRi-lK-fA7" eventType="touchUpInside" id="U3z-yc-5vO"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lightBeatsLogo" translatesAutoresizingMaskIntoConstraints="NO" id="ybx-4Z-36o">
+                                <rect key="frame" x="87" y="57" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="oTY-6G-cSA"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e3q-8Y-Ihw">
+                                <rect key="frame" x="0.0" y="372" width="375" height="100"/>
+                                <color key="backgroundColor" red="0.77647058820000003" green="0.15686274510000001" blue="0.15686274510000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="uKg-5V-CwE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="33"/>
+                                <state key="normal" title="JOIN SESSION">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="joinSessionPressed:" destination="yRi-lK-fA7" eventType="touchUpInside" id="bGB-E6-nue"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="e3q-8Y-Ihw" secondAttribute="trailing" id="6nT-V1-qp4"/>
+                            <constraint firstItem="ybx-4Z-36o" firstAttribute="top" secondItem="IeP-Mc-shd" secondAttribute="bottom" constant="37" id="CTc-uo-9PD"/>
+                            <constraint firstItem="e3q-8Y-Ihw" firstAttribute="leading" secondItem="3rg-HG-fyX" secondAttribute="leading" id="EfP-Cb-0Fw"/>
+                            <constraint firstItem="PCI-zI-45R" firstAttribute="top" secondItem="8dH-Jq-AOB" secondAttribute="bottom" constant="97" id="PD8-li-Qav"/>
+                            <constraint firstItem="e3q-8Y-Ihw" firstAttribute="leading" secondItem="8dH-Jq-AOB" secondAttribute="leading" id="Phx-kK-aay"/>
+                            <constraint firstItem="ybx-4Z-36o" firstAttribute="centerX" secondItem="e3q-8Y-Ihw" secondAttribute="centerX" id="ZcM-PE-nSO"/>
+                            <constraint firstItem="rfA-Cf-lIz" firstAttribute="bottom" secondItem="PCI-zI-45R" secondAttribute="top" id="cIX-TA-71d"/>
+                            <constraint firstItem="8dH-Jq-AOB" firstAttribute="trailing" secondItem="rfA-Cf-lIz" secondAttribute="trailing" id="cO6-Wg-feN"/>
+                            <constraint firstItem="rfA-Cf-lIz" firstAttribute="top" secondItem="e3q-8Y-Ihw" secondAttribute="bottom" constant="95" id="jxZ-As-Qhn"/>
+                            <constraint firstItem="ybx-4Z-36o" firstAttribute="leading" secondItem="yQg-la-dQy" secondAttribute="leading" constant="87" id="tnc-3b-BCP"/>
+                            <constraint firstItem="8dH-Jq-AOB" firstAttribute="leading" secondItem="rfA-Cf-lIz" secondAttribute="leading" id="xAF-U4-Ktj"/>
+                            <constraint firstItem="e3q-8Y-Ihw" firstAttribute="trailing" secondItem="8dH-Jq-AOB" secondAttribute="trailing" id="y0m-i8-J1M"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yQg-la-dQy"/>
+                    </view>
+                    <connections>
+                        <outlet property="createLightBeatButton" destination="rfA-Cf-lIz" id="klk-pc-RyT"/>
+                        <outlet property="hostLightBeatButton" destination="8dH-Jq-AOB" id="1ay-Kj-hXW"/>
+                        <outlet property="joinSessionButton" destination="e3q-8Y-Ihw" id="mHD-Ch-102"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A5e-Yy-7Sf" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="486" y="806"/>
         </scene>
     </scenes>
     <resources>
@@ -955,7 +1214,7 @@
         <image name="lightBeatsLogo" width="469" height="447"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8aN-5p-kO5"/>
-        <segue reference="9ko-cw-bwe"/>
+        <segue reference="Gj6-HY-gd7"/>
+        <segue reference="hJC-hp-kvQ"/>
     </inferredMetricsTieBreakers>
 </document>

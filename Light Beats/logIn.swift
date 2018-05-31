@@ -9,12 +9,15 @@
 import UIKit
 
 class logIn: UIViewController {
+    @IBOutlet weak var logInButton: UIButton!
     var token: String = ""
     var tokenLong: String = ""
-
+    let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        activityView.center = self.view.center
+        activityView.color = UIColor.blue
+        activityView.startAnimating()
         // Do any additional setup after loading the view.
     }
 
@@ -27,17 +30,38 @@ class logIn: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     
     @IBAction func logIn(_ sender: Any) {
-        LBUser.logIn(username: usernameField.text!, password: passwordField.text!) { (tokens, error) in
-            if error == nil {
-                self.token = tokens![0]
-                self.tokenLong = tokens![1]
-                let keychain = KeychainSwift()
-                keychain.set(self.token, forKey: "token")
-                keychain.set(self.tokenLong, forKey: "tokenLong")
-                UserDefaults.standard.set(self.usernameField.text, forKey: "username")
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let controller = storyboard.instantiateViewController(withIdentifier: "beatWorkshop")
-                self.present(controller, animated: true, completion: nil)
+        logInButton.isEnabled = false
+        view.addSubview(activityView)
+        if usernameField.text! == "" || passwordField.text! == "" {
+            let alert = UIAlertController(title: "Failure", message: "Please ensure a username and password are entered", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: {
+                self.activityView.removeFromSuperview()
+                self.logInButton.isEnabled = true
+            })
+        }
+        else {
+            LBUser.logIn(username: usernameField.text!, password: passwordField.text!) { (tokens, error) in
+                if error == nil {
+                    self.activityView.removeFromSuperview()
+                    self.token = tokens![0]
+                    self.tokenLong = tokens![1]
+                    let keychain = KeychainSwift()
+                    keychain.set(self.token, forKey: "token")
+                    keychain.set(self.tokenLong, forKey: "tokenLong")
+                    UserDefaults.standard.set(self.usernameField.text, forKey: "username")
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let controller = storyboard.instantiateViewController(withIdentifier: UserDefaults.standard.string(forKey: "nextID")!)
+                    self.present(controller, animated: true, completion: nil)
+                }
+                else {
+                    let alert = UIAlertController(title: "Failure", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: {
+                    self.activityView.removeFromSuperview()
+                    self.logInButton.isEnabled = true
+                })
+                }
             }
         }
     }

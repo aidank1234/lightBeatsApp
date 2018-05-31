@@ -67,4 +67,72 @@ class LBBeat {
             }
         }
     }
+    
+    class func validateName(name: String, token: String, completionHandler: @escaping (Int?, Error?) -> Void) {
+        let dict = ["name": name, "token": token]
+        
+        Alamofire.request("\(Globals.baseURL)/beat/validateName", method: HTTPMethod.post, parameters: dict, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).response { (response) in
+            if response.error == nil {
+                let statusCode = response.response?.statusCode
+                completionHandler(statusCode, nil)
+            }
+            else {
+                completionHandler(-1, response.error)
+            }
+        }
+    }
+    
+    class func beatNameQuery(name: String, token: String, completionHandler: @escaping ([String?], Error?) -> Void) {
+        let dict = ["name": name, "token": token]
+        
+        Alamofire.request("\(Globals.baseURL)/beat/beatNameQuery", method: HTTPMethod.post, parameters: dict, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { (response) in
+            if response.error == nil {
+                let statusCode = response.response?.statusCode
+                if statusCode == 200 {
+                    var nameArray: [String] = []
+                    let result = response.result.value
+                    let json = result as! [NSDictionary]
+                    let length = json.count
+                    if length != 0 {
+                        for index in 0...length - 1 {
+                        nameArray.append(json[index]["name"] as! String)
+                        }
+                    }
+                    else {
+                        nameArray.append("No Results")
+                    }
+                    completionHandler(nameArray, nil)
+                }
+                else {
+                    let badStatusError = NSError(domain: "", code: statusCode!, userInfo: nil)
+                    completionHandler(["No Results"], badStatusError)
+                }
+            }
+            else {
+                completionHandler(["No Results"], response.error)
+            }
+        }
+    }
+    
+    class func beatSongQuery(songRelationName: String, songRelationArtist: String, token: String, completionHandler: @escaping (Int?, Error?) -> Void) {
+        let dict = ["songRelationName": songRelationName, "songRelationArtist": songRelationArtist, "token": token]
+        
+        Alamofire.request("\(Globals.baseURL)/beat/beatSongQuery", method: HTTPMethod.post, parameters: dict, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { (response) in
+            if response.error == nil {
+                let statusCode = response.response?.statusCode
+                if statusCode == 200 {
+                    let result = response.result.value
+                    let json = result as! NSDictionary
+                    completionHandler(json["results"] as? Int, nil)
+                }
+                else {
+                    let badStatusError = NSError(domain: "", code: statusCode!, userInfo: nil)
+                    completionHandler(0, nil)
+                }
+            }
+            else {
+                completionHandler(0, response.error)
+            }
+        }
+    }
 }

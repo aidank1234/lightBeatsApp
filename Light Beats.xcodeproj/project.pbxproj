@@ -28,6 +28,9 @@
 		5F8E04D520B9D88600CFAD8F /* BeatUpload1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8E04D420B9D88600CFAD8F /* BeatUpload1.swift */; };
 		5F8E04DE20B9D89700CFAD8F /* BeatUpload2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8E04DD20B9D89700CFAD8F /* BeatUpload2.swift */; };
 		5FBC04DC20BE039B00C070D7 /* DropDown.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 5FBC04D920BE031C00C070D7 /* DropDown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5FBC04E420BF0FF600C070D7 /* FirstScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBC04E320BF0FF600C070D7 /* FirstScreen.swift */; };
+		5FBC04F120BF389900C070D7 /* MyBeats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBC04F020BF389900C070D7 /* MyBeats.swift */; };
+		5FBC04F320BF56A200C070D7 /* SearchBeats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBC04F220BF56A100C070D7 /* SearchBeats.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -173,6 +176,9 @@
 		5F8E04D420B9D88600CFAD8F /* BeatUpload1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatUpload1.swift; sourceTree = "<group>"; };
 		5F8E04DD20B9D89700CFAD8F /* BeatUpload2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatUpload2.swift; sourceTree = "<group>"; };
 		5FBC04C720BE031B00C070D7 /* DropDown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DropDown.xcodeproj; path = DropDown/DropDown.xcodeproj; sourceTree = "<group>"; };
+		5FBC04E320BF0FF600C070D7 /* FirstScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstScreen.swift; sourceTree = "<group>"; };
+		5FBC04F020BF389900C070D7 /* MyBeats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBeats.swift; sourceTree = "<group>"; };
+		5FBC04F220BF56A100C070D7 /* SearchBeats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBeats.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,11 +245,14 @@
 				5F827A4C20B62015002ACF08 /* LBBeat.swift */,
 				5F827A4820B5F349002ACF08 /* LBUser.swift */,
 				5F827A4E20B62377002ACF08 /* logIn.swift */,
+				5FBC04E320BF0FF600C070D7 /* FirstScreen.swift */,
 				5F827A4A20B61354002ACF08 /* BeatCreator.swift */,
 				5F827A5420B6481B002ACF08 /* BeatPlayer.swift */,
 				5F6F6D6A20B87F6C00457578 /* BeatWorkshop.swift */,
 				5F8E04D420B9D88600CFAD8F /* BeatUpload1.swift */,
 				5F8E04DD20B9D89700CFAD8F /* BeatUpload2.swift */,
+				5FBC04F020BF389900C070D7 /* MyBeats.swift */,
+				5FBC04F220BF56A100C070D7 /* SearchBeats.swift */,
 			);
 			path = "Light Beats";
 			sourceTree = "<group>";
@@ -517,6 +526,7 @@
 			files = (
 				5F827A4920B5F349002ACF08 /* LBUser.swift in Sources */,
 				5F827A4F20B62377002ACF08 /* logIn.swift in Sources */,
+				5FBC04E420BF0FF600C070D7 /* FirstScreen.swift in Sources */,
 				5F827A4720B5F329002ACF08 /* SwiftyJSON.swift in Sources */,
 				5F424BFB20B4E7AA00996F4F /* ViewController.swift in Sources */,
 				5F827A5520B6481B002ACF08 /* BeatPlayer.swift in Sources */,
@@ -525,8 +535,10 @@
 				5F8E04DE20B9D89700CFAD8F /* BeatUpload2.swift in Sources */,
 				5F8E04D520B9D88600CFAD8F /* BeatUpload1.swift in Sources */,
 				5F424BF920B4E7AA00996F4F /* AppDelegate.swift in Sources */,
+				5FBC04F120BF389900C070D7 /* MyBeats.swift in Sources */,
 				5F6F6D6B20B87F6C00457578 /* BeatWorkshop.swift in Sources */,
 				5F827A4D20B62015002ACF08 /* LBBeat.swift in Sources */,
+				5FBC04F320BF56A200C070D7 /* SearchBeats.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

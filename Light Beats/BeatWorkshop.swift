@@ -107,6 +107,7 @@ class BeatWorkshop: UIViewController {
             countdown()
         }
         else if afterFirstRecord == true && recording == false {
+            toggleTorch(on: false)
             Globals.beatStartUpload = beatStart
             Globals.beatLengthsUpload = beatLengths
             Globals.brightnessUpload = brightnessArray
