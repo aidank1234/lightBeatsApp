@@ -31,6 +31,14 @@
 		5FBC04E420BF0FF600C070D7 /* FirstScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBC04E320BF0FF600C070D7 /* FirstScreen.swift */; };
 		5FBC04F120BF389900C070D7 /* MyBeats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBC04F020BF389900C070D7 /* MyBeats.swift */; };
 		5FBC04F320BF56A200C070D7 /* SearchBeats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBC04F220BF56A100C070D7 /* SearchBeats.swift */; };
+		5FBC04F520C5AF2000C070D7 /* CosmosDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBC04F420C5AF1F00C070D7 /* CosmosDistrib.swift */; };
+		5FBC04F720C5B2B800C070D7 /* HostBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBC04F620C5B2B800C070D7 /* HostBeat.swift */; };
+		5FBC04F920C5CDEC00C070D7 /* BeatResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBC04F820C5CDEB00C070D7 /* BeatResults.swift */; };
+		5FBC04FB20C6154200C070D7 /* LBSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBC04FA20C6154200C070D7 /* LBSession.swift */; };
+		5FBC04FD20C61C6C00C070D7 /* startSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBC04FC20C61C6C00C070D7 /* startSession.swift */; };
+		5FBC04FF20C61FA500C070D7 /* JoinSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBC04FE20C61FA500C070D7 /* JoinSession.swift */; };
+		5FBC050720CB036100C070D7 /* Sign Up.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBC050620CB036100C070D7 /* Sign Up.swift */; };
+		5FBC051420CC718D00C070D7 /* LogInSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBC051320CC718D00C070D7 /* LogInSignUp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +187,14 @@
 		5FBC04E320BF0FF600C070D7 /* FirstScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstScreen.swift; sourceTree = "<group>"; };
 		5FBC04F020BF389900C070D7 /* MyBeats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBeats.swift; sourceTree = "<group>"; };
 		5FBC04F220BF56A100C070D7 /* SearchBeats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBeats.swift; sourceTree = "<group>"; };
+		5FBC04F420C5AF1F00C070D7 /* CosmosDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosDistrib.swift; sourceTree = "<group>"; };
+		5FBC04F620C5B2B800C070D7 /* HostBeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostBeat.swift; sourceTree = "<group>"; };
+		5FBC04F820C5CDEB00C070D7 /* BeatResults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatResults.swift; sourceTree = "<group>"; };
+		5FBC04FA20C6154200C070D7 /* LBSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LBSession.swift; sourceTree = "<group>"; };
+		5FBC04FC20C61C6C00C070D7 /* startSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = startSession.swift; sourceTree = "<group>"; };
+		5FBC04FE20C61FA500C070D7 /* JoinSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSession.swift; sourceTree = "<group>"; };
+		5FBC050620CB036100C070D7 /* Sign Up.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sign Up.swift"; sourceTree = "<group>"; };
+		5FBC051320CC718D00C070D7 /* LogInSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInSignUp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +250,7 @@
 		5F424BF720B4E7AA00996F4F /* Light Beats */ = {
 			isa = PBXGroup;
 			children = (
+				5FBC04F420C5AF1F00C070D7 /* CosmosDistrib.swift */,
 				5F6F6D5F20B71E8C00457578 /* KeychainSwiftDistrib.swift */,
 				5F827A4620B5F329002ACF08 /* SwiftyJSON.swift */,
 				5F424BF820B4E7AA00996F4F /* AppDelegate.swift */,
@@ -244,7 +261,10 @@
 				5F424C0420B4E7AD00996F4F /* Info.plist */,
 				5F827A4C20B62015002ACF08 /* LBBeat.swift */,
 				5F827A4820B5F349002ACF08 /* LBUser.swift */,
+				5FBC04FA20C6154200C070D7 /* LBSession.swift */,
+				5FBC051320CC718D00C070D7 /* LogInSignUp.swift */,
 				5F827A4E20B62377002ACF08 /* logIn.swift */,
+				5FBC050620CB036100C070D7 /* Sign Up.swift */,
 				5FBC04E320BF0FF600C070D7 /* FirstScreen.swift */,
 				5F827A4A20B61354002ACF08 /* BeatCreator.swift */,
 				5F827A5420B6481B002ACF08 /* BeatPlayer.swift */,
@@ -253,6 +273,10 @@
 				5F8E04DD20B9D89700CFAD8F /* BeatUpload2.swift */,
 				5FBC04F020BF389900C070D7 /* MyBeats.swift */,
 				5FBC04F220BF56A100C070D7 /* SearchBeats.swift */,
+				5FBC04F620C5B2B800C070D7 /* HostBeat.swift */,
+				5FBC04F820C5CDEB00C070D7 /* BeatResults.swift */,
+				5FBC04FC20C61C6C00C070D7 /* startSession.swift */,
+				5FBC04FE20C61FA500C070D7 /* JoinSession.swift */,
 			);
 			path = "Light Beats";
 			sourceTree = "<group>";
@@ -524,11 +548,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FBC050720CB036100C070D7 /* Sign Up.swift in Sources */,
+				5FBC04F720C5B2B800C070D7 /* HostBeat.swift in Sources */,
 				5F827A4920B5F349002ACF08 /* LBUser.swift in Sources */,
+				5FBC04F920C5CDEC00C070D7 /* BeatResults.swift in Sources */,
+				5FBC04FD20C61C6C00C070D7 /* startSession.swift in Sources */,
 				5F827A4F20B62377002ACF08 /* logIn.swift in Sources */,
 				5FBC04E420BF0FF600C070D7 /* FirstScreen.swift in Sources */,
+				5FBC04F520C5AF2000C070D7 /* CosmosDistrib.swift in Sources */,
 				5F827A4720B5F329002ACF08 /* SwiftyJSON.swift in Sources */,
 				5F424BFB20B4E7AA00996F4F /* ViewController.swift in Sources */,
+				5FBC051420CC718D00C070D7 /* LogInSignUp.swift in Sources */,
 				5F827A5520B6481B002ACF08 /* BeatPlayer.swift in Sources */,
 				5F6F6D6720B71E8C00457578 /* KeychainSwiftDistrib.swift in Sources */,
 				5F827A4B20B61354002ACF08 /* BeatCreator.swift in Sources */,
@@ -539,6 +569,8 @@
 				5F6F6D6B20B87F6C00457578 /* BeatWorkshop.swift in Sources */,
 				5F827A4D20B62015002ACF08 /* LBBeat.swift in Sources */,
 				5FBC04F320BF56A200C070D7 /* SearchBeats.swift in Sources */,
+				5FBC04FB20C6154200C070D7 /* LBSession.swift in Sources */,
+				5FBC04FF20C61FA500C070D7 /* JoinSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -721,7 +753,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NSBWUG83BT;
 				INFOPLIST_FILE = "Light Beats/Info.plist";
@@ -741,7 +773,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NSBWUG83BT;
 				INFOPLIST_FILE = "Light Beats/Info.plist";
