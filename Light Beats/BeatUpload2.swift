@@ -154,6 +154,8 @@ class BeatUpload2: UIViewController, UITextFieldDelegate {
         activityView.center = self.view.center
         activityView.color = UIColor.blue
         activityView.startAnimating()
+        songStartTimeMinutesField.keyboardType = UIKeyboardType.numberPad
+        songStartTimeSecondsField.keyboardType = UIKeyboardType.numberPad
         // Do any additional setup after loading the view.
     }
 
@@ -181,7 +183,7 @@ class BeatUpload2: UIViewController, UITextFieldDelegate {
                             artists.append(json["results"]["trackmatches"]["track"][index]["artist"].string!)
                         }
                         for index in 0...json["results"]["trackmatches"]["track"].count - 1 {
-                            dropDown.dataSource.append("\(songs[index]) - \(artists[index])")
+                            dropDown.dataSource.append("\(songs[index]) by \(artists[index])")
                         }
                     }
                     else {
@@ -200,7 +202,7 @@ class BeatUpload2: UIViewController, UITextFieldDelegate {
                 dropDown.dismissMode = .onTap
                 dropDown.selectionAction = {[weak self] (index, item) in
                     if dropDown.selectedItem != "No Results" {
-                        let delimiter = " - "
+                        let delimiter = " by "
                         self?.songAndArtist = (dropDown.selectedItem?.components(separatedBy: delimiter))!
                         self?.searchSongField.text = dropDown.selectedItem
                     }

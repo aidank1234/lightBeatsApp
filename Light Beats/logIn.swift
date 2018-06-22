@@ -55,7 +55,7 @@ class logIn: UIViewController {
                     self.present(controller, animated: true, completion: nil)
                 }
                 else {
-                    let alert = UIAlertController(title: "Failure", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                    let alert = UIAlertController(title: "Failure", message: "Please enter a valid username and password", preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
                     self.present(alert, animated: true, completion: {
                     self.activityView.removeFromSuperview()

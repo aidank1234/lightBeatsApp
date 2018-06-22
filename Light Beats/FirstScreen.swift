@@ -13,7 +13,65 @@ class FirstScreen: UIViewController {
     var token: String = ""
     var tokenLong: String = ""
     let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+    @IBOutlet weak var lightBeatsLogo: UIImageView!
     @IBAction func joinSessionPressed(_ sender: Any) {
+        joinSessionButton.isEnabled = false
+        hostLightBeatButton.isEnabled = false
+        createLightBeatButton.isEnabled = false
+        view.addSubview(activityView)
+        
+        if keychain.get("token") == nil || keychain.get("tokenLong") == nil {
+            UserDefaults.standard.removeObject(forKey: "username")
+            LBUser.getShortTokens(token: keychain.get("token")!, tokenLong: keychain.get("tokenLong")!) { (tokens, error) in
+                if error == nil {
+                    self.activityView.removeFromSuperview()
+                    self.token = tokens![0]
+                    self.tokenLong = tokens![1]
+                    let keychain = KeychainSwift()
+                    keychain.set(self.token, forKey: "token")
+                    keychain.set(self.tokenLong, forKey: "tokenLong")
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let controller = storyboard.instantiateViewController(withIdentifier: "joinSession")
+                    self.present(controller, animated: true, completion: nil)
+                }
+                else {
+                    let alert = UIAlertController(title: "Failure", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: {
+                        self.activityView.removeFromSuperview()
+                        self.joinSessionButton.isEnabled = true
+                        self.hostLightBeatButton.isEnabled = true
+                        self.createLightBeatButton.isEnabled = true
+                    })
+                }
+            }
+        }
+        else {
+            UserDefaults.standard.removeObject(forKey: "username")
+            LBUser.getShortTokens(token: "", tokenLong: "") { (tokens, error) in
+                if error == nil {
+                    self.activityView.removeFromSuperview()
+                    self.token = tokens![0]
+                    self.tokenLong = tokens![1]
+                    let keychain = KeychainSwift()
+                    keychain.set(self.token, forKey: "token")
+                    keychain.set(self.tokenLong, forKey: "tokenLong")
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let controller = storyboard.instantiateViewController(withIdentifier: "joinSession")
+                    self.present(controller, animated: true, completion: nil)
+                }
+                else {
+                    let alert = UIAlertController(title: "Failure", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: {
+                        self.activityView.removeFromSuperview()
+                        self.joinSessionButton.isEnabled = true
+                        self.hostLightBeatButton.isEnabled = true
+                        self.createLightBeatButton.isEnabled = true
+                    })
+                }
+            }
+        }
     }
     @IBOutlet weak var joinSessionButton: UIButton!
     @IBOutlet weak var hostLightBeatButton: UIButton!
@@ -44,6 +102,7 @@ class FirstScreen: UIViewController {
                     self.present(controller, animated: true, completion: nil)
                 }
                 else {
+                    self.keychain.clear()
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let controller = storyboard.instantiateViewController(withIdentifier: "logInSignUp")
                     self.present(controller, animated: true, completion: nil)
@@ -77,6 +136,7 @@ class FirstScreen: UIViewController {
                     self.present(controller, animated: true, completion: nil)
                 }
                 else {
+                    self.keychain.clear()
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let controller = storyboard.instantiateViewController(withIdentifier: "logInSignUp")
                     self.present(controller, animated: true, completion: nil)
@@ -87,6 +147,8 @@ class FirstScreen: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        lightBeatsLogo.layer.masksToBounds = true
+        lightBeatsLogo.layer.cornerRadius = 10.0
         activityView.center = self.view.center
         activityView.color = UIColor.blue
         activityView.startAnimating()

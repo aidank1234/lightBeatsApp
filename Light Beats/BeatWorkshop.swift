@@ -38,6 +38,7 @@ class BeatWorkshop: UIViewController {
     var torchActive = false
     var brightnessTimer: Timer?
     var brightnessArray: [Double] = []
+    var recordingNumber = 0
     
     var lightEnd = false
     var primaryTime = 0.0
@@ -104,10 +105,21 @@ class BeatWorkshop: UIViewController {
             brightnessTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(appendBrightness), userInfo: nil, repeats: true)
             afterFirstRecord = true
             withAudio = false
+            recordingNumber = recordingNumber + 1
             countdown()
         }
         else if afterFirstRecord == true && recording == false {
             toggleTorch(on: false)
+            var totalLength = 0.00
+            for length in beatLengths {
+                totalLength = totalLength + length
+            }
+            var dispersedAddition = (Double(10 * recordingNumber) - totalLength)/Double(beatLengths.count)
+            var totalAddition = Double(10 * recordingNumber) - totalLength
+            var totalAdded = 0.00
+            for index in 0...beatLengths.count - 1 {
+                beatLengths[index] = beatLengths[index] + dispersedAddition
+            }
             Globals.beatStartUpload = beatStart
             Globals.beatLengthsUpload = beatLengths
             Globals.brightnessUpload = brightnessArray
@@ -123,6 +135,7 @@ class BeatWorkshop: UIViewController {
     }
     @IBOutlet weak var startWithAudioButton: UIButton!
     @IBAction func startWithAudioPressed(_ sender: Any) {
+        recordingNumber = recordingNumber + 1
         if recording == false {
             if afterFirstRecord == false {
                 if torchActive == true {
@@ -214,7 +227,7 @@ class BeatWorkshop: UIViewController {
     func strobe() {
         while strobeMode == true {
             var current = Date.timeIntervalSinceReferenceDate
-            while Date.timeIntervalSinceReferenceDate - current < Double(0.33 - strobeSpeedSlider.value) {
+            while Date.timeIntervalSinceReferenceDate - current < Double(0.35 - strobeSpeedSlider.value) {
                 //Do Nothing
             }
             guard let device = AVCaptureDevice.default(for: AVMediaType.video)

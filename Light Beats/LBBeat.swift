@@ -18,8 +18,11 @@ class LBBeat {
     var songRelation: Bool?
     var songRelationName: String?
     var songRelationArtist: String?
+    var plays: Int?
+    var rating: Double?
+    var createdBy: String?
     
-    init(name: String, beatStart: Int, beatLengths: [Double], brightness: [Double], songStartTime: Int, songRelation: Bool, songRelationName: String, songRelationArtist: String) {
+    init(name: String, beatStart: Int, beatLengths: [Double], brightness: [Double], songStartTime: Int, songRelation: Bool, songRelationName: String, songRelationArtist: String, plays: Int, rating: Double, createdBy: String) {
         self.name = name
         self.beatStart = beatStart
         self.beatLengths = beatLengths
@@ -28,6 +31,10 @@ class LBBeat {
         self.brightness = brightness
         self.songStartTime = songStartTime
         self.songRelation = songRelation
+        self.plays = plays
+        self.rating = rating
+        self.createdBy = createdBy
+        
     }
     
     class func newBeat(name: String, beatStart: Int, beatLengths: [Double], brightness: [Double], songStartTime: Int, songRelation: Bool, songRelationName: String, songRelationArtist: String, createdBy: String, token: String, completionHandler: @escaping (Int?, Error?) -> Void) {
@@ -53,7 +60,7 @@ class LBBeat {
                 if statusCode == 200 {
                     let result = response.result.value
                     let json = result as! NSDictionary
-                    let downloadedBeat = LBBeat(name: json["name"]! as! String, beatStart: json["beatStart"]! as! Int, beatLengths: json["beatLengths"]! as! [Double], brightness: json["brightness"]! as! [Double], songStartTime: json["songStartTime"]! as! Int, songRelation: json["songRelation"]! as! Bool, songRelationName: json["songRelationName"]! as! String, songRelationArtist: json["songRelationArtist"]! as! String)
+                    let downloadedBeat = LBBeat(name: json["name"]! as! String, beatStart: json["beatStart"]! as! Int, beatLengths: json["beatLengths"]! as! [Double], brightness: json["brightness"]! as! [Double], songStartTime: json["songStartTime"]! as! Int, songRelation: json["songRelation"]! as! Bool, songRelationName: json["songRelationName"]! as! String, songRelationArtist: json["songRelationArtist"]! as! String, plays: json["plays"]! as! Int, rating: json["rating"]! as! Double, createdBy: json["createdBy"]! as! String)
                     completionHandler(downloadedBeat, nil)
                 }
                 else {
@@ -133,6 +140,34 @@ class LBBeat {
             else {
                 completionHandler(0, response.error)
             }
+        }
+    }
+    
+    class func beatsBySong(songRelationName: String, songRelationArtist: String, token: String, completionHandler: @escaping ([String?], Error?) -> Void) {
+        let dict = ["songRelationName": songRelationName, "songRelationArtist": songRelationArtist, "token": token]
+        
+        Alamofire.request("\(Globals.baseURL)/beat/beatsBySong", method: HTTPMethod.post, parameters: dict, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { (response) in
+            if response.error == nil {
+            let statusCode = response.response?.statusCode
+                if statusCode == 200 {
+                    let result = response.result.value
+                    let json = try! JSON(data: response.data!)
+                    print(json)
+                    var results: [String] = []
+                    for index in 0...Int(json["amount"].int! - 1) {
+                        results.append(json["results"][index]["name"].string!)
+                    }
+                    completionHandler(results, nil)
+                }
+                else {
+                    let badStatusError = NSError(domain: "", code: statusCode!, userInfo: nil)
+                    completionHandler([""], nil)
+                }
+            }
+            else {
+                completionHandler([""], response.error)
+            }
+            
         }
     }
 }

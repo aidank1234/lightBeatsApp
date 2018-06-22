@@ -18,6 +18,16 @@ struct Globals {
     static var brightnessUpload: [Double] = []
     static var songStartTimeUpload = -1
     static var songRelationUpload = false
+    
+    static var beatNameDownload = ""
+    static var beatLengthsDownload: [Double] = []
+    static var songStartTimeDownload = -1
+    static var songRelationDownload = false
+    static var songRelationArtistDownload = ""
+    static var songRelationNameDownload = ""
+    static var playsDownload = 0
+    static var ratingDownload = -1.0
+    static var createdByDownload = ""
 }
 
 
@@ -57,6 +67,20 @@ class LBUser {
             else {
                 let stringArray = [""]
                 completionHandler(stringArray, response.error)
+            }
+        }
+    }
+    
+    class func validateUsername(username: String, completionHandler: @escaping (Int?, Error?) -> Void) {
+        let dict = ["username": username]
+        
+        Alamofire.request("\(Globals.baseURL)/user/validateUsername", method: HTTPMethod.post, parameters: dict, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { (response) in
+            if response.error == nil {
+                let statusCode = response.response?.statusCode
+                completionHandler(statusCode, nil)
+            }
+            else {
+                completionHandler(-1, nil)
             }
         }
     }
@@ -140,6 +164,34 @@ class LBUser {
                     let result = response.result.value
                     let json = result as! NSDictionary
                     completionHandler(json["beats"] as! [String], nil)
+                }
+                else {
+                    let badStatusError = NSError(domain: "", code: statusCode!, userInfo: nil)
+                    let stringArray = [""]
+                    completionHandler(stringArray, badStatusError)
+                }
+            }
+            else {
+                let stringArray = [""]
+                completionHandler(stringArray, response.error)
+            }
+        }
+    }
+    
+    class func getShortTokens(token: String, tokenLong: String, completionHandler: @escaping ([String]?, Error?) -> Void) {
+        UserDefaults.standard.removeObject(forKey: "username")
+        let dict = ["token": token, "tokenLong": tokenLong]
+        
+        Alamofire.request("\(Globals.baseURL)/user/getShortTokens", method: HTTPMethod.post, parameters: dict, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { (response) in
+            if response.error == nil {
+                let statusCode = response.response?.statusCode
+                if statusCode == 200 {
+                    var stringArray = ["", ""]
+                    let result = response.result.value
+                    let json = result as! NSDictionary
+                    stringArray[0] = json["token"]! as! String
+                    stringArray[1] = json["tokenLong"]! as! String
+                    completionHandler(stringArray, nil)
                 }
                 else {
                     let badStatusError = NSError(domain: "", code: statusCode!, userInfo: nil)
