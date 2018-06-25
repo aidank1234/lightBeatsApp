@@ -9,7 +9,19 @@
 import UIKit
 import AVFoundation
 
-class JoinSession: UIViewController, UITextFieldDelegate {
+class JoinSession: UIViewController, UITextFieldDelegate, PopupProtocol {
+    func dismiss() {
+        self.dismissPopup(completion: nil)
+        
+        UserDefaults.standard.set(false, forKey: "needsToRate")
+        UserDefaults.standard.synchronize()
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "firstScreen")
+        self.present(controller, animated: true, completion: nil)
+    }
+    
+    
     let keychain = KeychainSwift()
     let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
     
@@ -25,6 +37,10 @@ class JoinSession: UIViewController, UITextFieldDelegate {
     var totalBrightness = 0.0
     
     var brightnessTimer: Timer?
+    var requestTimer: Timer?
+    var makeTimer = true
+    
+    var popupVC: RatingPopUp?
     
 
     
@@ -43,6 +59,7 @@ class JoinSession: UIViewController, UITextFieldDelegate {
                 self.beatLengths = beat?.beatLengths
                 self.beatStart = (beat?.beatStart)!
                 self.brightness = (beat?.brightness)!
+                Globals.beatNameDownload = (beat?.name)!
                 self.startButton.backgroundColor = UIColor.gray
                 self.startButton.setTitle("Waiting", for: UIControlState.normal)
                 self.checkSessionRecursive()
@@ -66,6 +83,7 @@ class JoinSession: UIViewController, UITextFieldDelegate {
         LBSession.checkLive(code: Int(sessionCodeField.text!)!, token: keychain.get("token")!) { (dateLive, error) in
             if error == nil {
                 if dateLive != -1 {
+                    self.requestTimer?.invalidate()
                     self.activityView.removeFromSuperview()
                     self.backButton.removeFromSuperview()
                     self.sessionCodeField.removeFromSuperview()
@@ -126,7 +144,16 @@ class JoinSession: UIViewController, UITextFieldDelegate {
                     
                     
 
-                        var beatLengthTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(self.advanceTimer), userInfo: nil, repeats: true)
+                    
+                        var totalLength = 0.0
+                        for length in self.beatLengths! {
+                            totalLength = totalLength + length
+                        }
+                    
+                    var ratingTimer = Timer.scheduledTimer(timeInterval: totalLength, target: self, selector: #selector(self.showRating), userInfo: nil, repeats: false)
+                    
+                    
+                    self.startDisplayLink()
                     
                         DispatchQueue.global(qos: .background).async {
                             for length in self.beatLengths! {
@@ -134,21 +161,30 @@ class JoinSession: UIViewController, UITextFieldDelegate {
                                 self.dealWithTimer(length: currentLength)
                             }
                     }
-
-                    
                     
                     
                     
                 }
                 else {
-                    self.checkSessionRecursive()
+                    if self.makeTimer {
+                        self.requestTimer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.makeRequest), userInfo: nil, repeats: true)
+                        self.makeTimer = false
+                    }
                 }
             }
         }
     }
     
-    @objc func advanceTimer(timer: Timer) {
-        time = Date.timeIntervalSinceReferenceDate - self.startTime!
+    @objc func makeRequest() {
+        self.checkSessionRecursive()
+    }
+    @objc func showRating(timer: Timer) {
+        stopDisplayLink()
+        self.view.backgroundColor = UIColor.white
+        UserDefaults.standard.set(true, forKey: "needsToRate")
+        UserDefaults.standard.synchronize()
+        showRatingPopUp()
+        presentPopup(controller: popupVC!, completion: nil)
     }
     
     func dealWithTimer(length: Double) {
@@ -174,6 +210,10 @@ class JoinSession: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        popupVC = setPopupVC(storyboradID: "Main", viewControllerID: "ratingPopUp") as? RatingPopUp
+        
+        
+        
         lightBeatsLogo.isHidden = true
         lightBeatsLogo.layer.masksToBounds = true
         lightBeatsLogo.layer.cornerRadius = 10.0
@@ -219,6 +259,51 @@ class JoinSession: UIViewController, UITextFieldDelegate {
         } else {
             print("Torch is not available")
         }
+    }
+    
+    func showRatingPopUp() {
+        popupVC?.popupAlign = .center
+        popupVC?.popupAnimation = .bottom
+        popupVC?.delegate = self
+        popupVC?.popupSize = CGSize(width: view.frame.width - 40, height: 400)
+        popupVC?.touchDismiss = false
+        popupVC?.popupCorner = 5.0
+    }
+    
+    private var displayLink: CADisplayLink?
+    private var displayStartTime = 0.0
+    private let animLength = 0.04
+    
+    func startDisplayLink() {
+        
+        stopDisplayLink() // make sure to stop a previous running display link
+        displayStartTime = CACurrentMediaTime() // reset start time
+        
+        // create displayLink & add it to the run-loop
+        let displayLink = CADisplayLink(
+            target: self, selector: #selector(displayLinkDidFire)
+        )
+        displayLink.add(to: .main, forMode: .commonModes)
+        self.displayLink = displayLink
+    }
+    
+    @objc func displayLinkDidFire(_ displayLink: CADisplayLink) {
+        
+        var elapsed = CACurrentMediaTime() - displayStartTime
+        
+        if elapsed > animLength {
+            stopDisplayLink()
+            elapsed = animLength // clamp the elapsed time to the anim length
+        }
+        
+        self.time = time + elapsed
+        startDisplayLink()
+    }
+    
+    // invalidate display link if it's non-nil, then set to nil
+    func stopDisplayLink() {
+        displayLink?.invalidate()
+        displayLink = nil
     }
 
     /*

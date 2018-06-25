@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class BeatUpload1: UIViewController {
     let keychain = KeychainSwift()
@@ -157,6 +158,7 @@ class BeatUpload1: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        toggleTorch(on: false)
         activityView.center = self.view.center
         activityView.color = UIColor.blue
         activityView.startAnimating()
@@ -166,6 +168,31 @@ class BeatUpload1: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func toggleTorch(on: Bool) {
+        guard let device = AVCaptureDevice.default(for: AVMediaType.video)
+            else {return}
+        
+        if device.hasTorch {
+            do {
+                try device.lockForConfiguration()
+                
+                if on == true {
+                    device.torchMode = .on
+                    
+                } else {
+                    device.torchMode = .off
+                    
+                }
+                
+                device.unlockForConfiguration()
+            } catch {
+                print("Torch could not be used")
+            }
+        } else {
+            print("Torch is not available")
+        }
     }
     
 

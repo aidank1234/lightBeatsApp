@@ -170,4 +170,32 @@ class LBBeat {
             
         }
     }
+    
+    class func updateRating(name: String, rating: Double, token: String, completionHandler: @escaping (Int?, Error?) -> Void) {
+        let dict = ["name": name, "rating": rating, "token": token] as [String : Any]
+        
+        Alamofire.request("\(Globals.baseURL)/beat/updateRating", method: HTTPMethod.post, parameters: dict, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { (response) in
+            if response.error == nil {
+                let statusCode = response.response?.statusCode
+                completionHandler(statusCode, nil)
+            }
+            else {
+                completionHandler(-1, response.error)
+            }
+        }
+    }
+    
+    class func removeByName(name: String, username: String, token: String, completionHandler: @escaping (Int?, Error?) -> Void) {
+        let dict = ["name": name, "username": username, "token": token]
+        
+        Alamofire.request("\(Globals.baseURL)/beat/deleteByName", method: HTTPMethod.post, parameters: dict, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { (response) in
+            if response.error == nil {
+                let statusCode = response.response?.statusCode
+                completionHandler(statusCode, nil)
+            }
+            else {
+                completionHandler(-1, response.error)
+            }
+        }
+    }
 }

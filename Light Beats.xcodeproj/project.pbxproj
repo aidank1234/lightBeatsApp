@@ -39,6 +39,8 @@
 		5FBC04FF20C61FA500C070D7 /* JoinSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBC04FE20C61FA500C070D7 /* JoinSession.swift */; };
 		5FBC050720CB036100C070D7 /* Sign Up.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBC050620CB036100C070D7 /* Sign Up.swift */; };
 		5FBC051420CC718D00C070D7 /* LogInSignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FBC051320CC718D00C070D7 /* LogInSignUp.swift */; };
+		5FC3CA4D20DD70C600AA36A0 /* SHPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC3CA4320DD70C600AA36A0 /* SHPopup.swift */; };
+		5FC3CA4F20DD720300AA36A0 /* RatingPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC3CA4E20DD720300AA36A0 /* RatingPopUp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -195,6 +197,8 @@
 		5FBC04FE20C61FA500C070D7 /* JoinSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSession.swift; sourceTree = "<group>"; };
 		5FBC050620CB036100C070D7 /* Sign Up.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sign Up.swift"; sourceTree = "<group>"; };
 		5FBC051320CC718D00C070D7 /* LogInSignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInSignUp.swift; sourceTree = "<group>"; };
+		5FC3CA4320DD70C600AA36A0 /* SHPopup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHPopup.swift; sourceTree = "<group>"; };
+		5FC3CA4E20DD720300AA36A0 /* RatingPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingPopUp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +254,7 @@
 		5F424BF720B4E7AA00996F4F /* Light Beats */ = {
 			isa = PBXGroup;
 			children = (
+				5FC3CA4320DD70C600AA36A0 /* SHPopup.swift */,
 				5FBC04F420C5AF1F00C070D7 /* CosmosDistrib.swift */,
 				5F6F6D5F20B71E8C00457578 /* KeychainSwiftDistrib.swift */,
 				5F827A4620B5F329002ACF08 /* SwiftyJSON.swift */,
@@ -277,6 +282,7 @@
 				5FBC04F820C5CDEB00C070D7 /* BeatResults.swift */,
 				5FBC04FC20C61C6C00C070D7 /* startSession.swift */,
 				5FBC04FE20C61FA500C070D7 /* JoinSession.swift */,
+				5FC3CA4E20DD720300AA36A0 /* RatingPopUp.swift */,
 			);
 			path = "Light Beats";
 			sourceTree = "<group>";
@@ -555,6 +561,7 @@
 				5FBC04FD20C61C6C00C070D7 /* startSession.swift in Sources */,
 				5F827A4F20B62377002ACF08 /* logIn.swift in Sources */,
 				5FBC04E420BF0FF600C070D7 /* FirstScreen.swift in Sources */,
+				5FC3CA4D20DD70C600AA36A0 /* SHPopup.swift in Sources */,
 				5FBC04F520C5AF2000C070D7 /* CosmosDistrib.swift in Sources */,
 				5F827A4720B5F329002ACF08 /* SwiftyJSON.swift in Sources */,
 				5F424BFB20B4E7AA00996F4F /* ViewController.swift in Sources */,
@@ -570,6 +577,7 @@
 				5F827A4D20B62015002ACF08 /* LBBeat.swift in Sources */,
 				5FBC04F320BF56A200C070D7 /* SearchBeats.swift in Sources */,
 				5FBC04FB20C6154200C070D7 /* LBSession.swift in Sources */,
+				5FC3CA4F20DD720300AA36A0 /* RatingPopUp.swift in Sources */,
 				5FBC04FF20C61FA500C070D7 /* JoinSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

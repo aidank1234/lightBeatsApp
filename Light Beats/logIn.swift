@@ -50,6 +50,7 @@ class logIn: UIViewController {
                     keychain.set(self.token, forKey: "token")
                     keychain.set(self.tokenLong, forKey: "tokenLong")
                     UserDefaults.standard.set(self.usernameField.text, forKey: "username")
+                    UserDefaults.standard.synchronize()
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let controller = storyboard.instantiateViewController(withIdentifier: UserDefaults.standard.string(forKey: "nextID")!)
                     self.present(controller, animated: true, completion: nil)

@@ -10,7 +10,7 @@ import Foundation
 import Alamofire
 
 struct Globals {
-    static var baseURL = "http://10.0.0.220:3000"
+    static var baseURL = "http://ec2-18-233-150-97.compute-1.amazonaws.com:3000"
     
     static var beatNameUpload = ""
     static var beatStartUpload = -1

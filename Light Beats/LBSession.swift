@@ -126,4 +126,41 @@ class LBSession {
             }
         }
     }
+    
+    class func checkSubscribers(code: Int, token: String, completionHandler: @escaping (Int?, Error?) -> Void) {
+        let dict = ["code": code, "token": token] as [String : Any]
+        
+        Alamofire.request("\(Globals.baseURL)/session/checkSubscribers", method: HTTPMethod.post, parameters: dict, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { (response) in
+            if response.error == nil {
+                let statusCode = response.response?.statusCode
+                if statusCode == 200 {
+                    let result = response.result.value
+                    let json = result as! NSDictionary
+                    completionHandler(json["subscribers"]! as! Int, nil)
+                }
+                else {
+                    let badStatusError = NSError(domain: "", code: statusCode!, userInfo: nil)
+                    completionHandler(-1, badStatusError)
+                }
+            }
+            else {
+                print(response.error!)
+                completionHandler(-1, response.error)
+            }
+        }
+    }
+    
+    class func deleteSession(code: Int, token: String, completionHandler: @escaping (Int?, Error?) -> Void) {
+        let dict = ["code": code, "token": token] as [String : Any]
+        
+        Alamofire.request("\(Globals.baseURL)/session/deleteSession", method: HTTPMethod.post, parameters: dict, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { (response) in
+            if response.error == nil {
+                let statusCode = response.response?.statusCode
+                completionHandler(statusCode, nil)
+            }
+            else {
+                completionHandler(-1, response.error)
+            }
+        }
+    }
 }

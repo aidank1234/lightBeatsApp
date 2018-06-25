@@ -59,11 +59,10 @@ class BeatWorkshop: UIViewController {
             strobeMode = true
             strobeButton.backgroundColor = UIColor.gray
             lightButton.backgroundColor = UIColorFromRGB(rgbValue: 0xC62828)
-            DispatchQueue.global(qos: .background).async {
-                self.strobe()
-            }
+            strobe()
         }
         else {
+            stopDisplayLink()
             strobeMode = false
             strobeButton.backgroundColor = UIColorFromRGB(rgbValue: 0xC62828)
         }
@@ -96,11 +95,12 @@ class BeatWorkshop: UIViewController {
     @IBOutlet weak var startButton: UIButton!
     @IBAction func startPressed(_ sender: Any) {
         if afterFirstRecord == false && recording == false {
+            beatLengths.append(5.0)
             if torchActive == true {
-                beatStart = 1
+                beatStart = 0
             }
             else {
-                beatStart = 0
+                beatStart = 1
             }
             brightnessTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(appendBrightness), userInfo: nil, repeats: true)
             afterFirstRecord = true
@@ -114,12 +114,12 @@ class BeatWorkshop: UIViewController {
             for length in beatLengths {
                 totalLength = totalLength + length
             }
-            var dispersedAddition = (Double(10 * recordingNumber) - totalLength)/Double(beatLengths.count)
-            var totalAddition = Double(10 * recordingNumber) - totalLength
-            var totalAdded = 0.00
-            for index in 0...beatLengths.count - 1 {
-                beatLengths[index] = beatLengths[index] + dispersedAddition
-            }
+            let dispersedAddition = (Double(10 * recordingNumber) - totalLength)/Double(beatLengths.count)
+            let totalAddition = Double(10 * recordingNumber) - totalLength
+            let totalAdded = 0.00
+            //for index in 0...beatLengths.count - 1 {
+              //  beatLengths[index] = beatLengths[index] + dispersedAddition
+            //}
             Globals.beatStartUpload = beatStart
             Globals.beatLengthsUpload = beatLengths
             Globals.brightnessUpload = brightnessArray
@@ -138,11 +138,12 @@ class BeatWorkshop: UIViewController {
         recordingNumber = recordingNumber + 1
         if recording == false {
             if afterFirstRecord == false {
+                beatLengths.append(5.0)
                 if torchActive == true {
-                    beatStart = 1
+                    beatStart = 0
                 }
                 else {
-                    beatStart = 0
+                    beatStart = 1
                 }
                 brightnessTimer = Timer.scheduledTimer(timeInterval: 0.02, target: self, selector: #selector(appendBrightness), userInfo: nil, repeats: true)
                 afterFirstRecord = true
@@ -178,6 +179,7 @@ class BeatWorkshop: UIViewController {
         toggleTorch(on: true)
         torchActive = true
         lightButton.backgroundColor = UIColor.gray
+        stopDisplayLink()
         strobeMode = false
         strobeButton.backgroundColor = UIColor.gray
         strobeDisabled = true
@@ -185,7 +187,7 @@ class BeatWorkshop: UIViewController {
     @IBAction func lightButtonTouchUp(_ sender: Any) {
         finalTime = Date.timeIntervalSinceReferenceDate
         if recording == true {
-            var timeDifference = finalTime - primaryTime
+            let timeDifference = finalTime - primaryTime
             beatLengths.append(timeDifference)
         }
         if lightDisabled == false {
@@ -204,6 +206,8 @@ class BeatWorkshop: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         brightnessSlider.isContinuous = true
         strobeSpeedSlider.isContinuous = true
         brightnessSlider.addTarget(self, action: #selector(valChange(slider:)), for: .valueChanged)
@@ -225,25 +229,7 @@ class BeatWorkshop: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     func strobe() {
-        while strobeMode == true {
-            var current = Date.timeIntervalSinceReferenceDate
-            while Date.timeIntervalSinceReferenceDate - current < Double(0.35 - strobeSpeedSlider.value) {
-                //Do Nothing
-            }
-            guard let device = AVCaptureDevice.default(for: AVMediaType.video)
-                else{return}
-            if recording == true {
-                beatLengths.append(Double(0.33 - strobeSpeedSlider.value))
-            }
-            if device.torchMode == .on {
-                toggleTorch(on: false)
-                torchActive = false
-            }
-            else {
-                toggleTorch(on: true)
-                torchActive = true
-            }
-        }
+        startDisplayLink()
     }
     @objc func runTimedCode() {
         startWithAudioButton.setTitle("Continue", for: UIControlState.normal)
@@ -287,6 +273,7 @@ class BeatWorkshop: UIViewController {
                     
                 }
             }
+            stopDisplayLink()
             recording = false
             strobeMode = false
             timerLabel.text = "10.00"
@@ -347,5 +334,58 @@ class BeatWorkshop: UIViewController {
             alpha: CGFloat(1.0)
         )
     }
+    
+    private var displayLink: CADisplayLink?
+    private var displayStartTime = 0.0
+    private var animLength = 0.0167
+    var counter = 0.0
+    
+    func startDisplayLink() {
+        
+        stopDisplayLink() // make sure to stop a previous running display link
+        displayStartTime = CACurrentMediaTime() // reset start time
+        
+        // create displayLink & add it to the run-loop
+        let displayLink = CADisplayLink(
+            target: self, selector: #selector(displayLinkDidFire)
+        )
+        displayLink.add(to: .main, forMode: .commonModes)
+        self.displayLink = displayLink
+    }
+    
+    @objc func displayLinkDidFire(_ displayLink: CADisplayLink) {
+        
+        var elapsed = CACurrentMediaTime() - displayStartTime
+        
+        if elapsed > animLength {
+            stopDisplayLink()
+            elapsed = animLength // clamp the elapsed time to the anim length
+        }
+        counter = counter + elapsed
+        if counter >= 0.35 - Double(strobeSpeedSlider.value) {
+            let device = AVCaptureDevice.default(for: AVMediaType.video)
+            if recording == true {
+                print(counter)
+                beatLengths.append(counter * (10/(4.52 * (0.35 - Double(strobeSpeedSlider.value)) + 8.424)))
+            }
+            if device?.torchMode == .on {
+                toggleTorch(on: false)
+                torchActive = false
+            }
+            else {
+                toggleTorch(on: true)
+                torchActive = true
+            }
+            counter = 0
+        }
+        startDisplayLink()
+    }
+    
+    // invalidate display link if it's non-nil, then set to nil
+    func stopDisplayLink() {
+        displayLink?.invalidate()
+        displayLink = nil
+    }
+
 
 }

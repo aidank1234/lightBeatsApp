@@ -9,6 +9,15 @@
 import UIKit
 
 class MyBeats: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    func UIColorFromRGB(rgbValue: UInt) -> UIColor {
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
+    
     var myBeatsTitles: [String] = []
     let keychain = KeychainSwift()
     let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
@@ -23,6 +32,8 @@ class MyBeats: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = myBeatsTableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath as IndexPath)
         cell.textLabel!.text = "\(myBeatsTitles[indexPath.row])"
+        cell.textLabel!.font = UIFont(name: "Futura", size: 20.0)
+        cell.textLabel!.textColor = UIColorFromRGB(rgbValue: 0xC62828)
         return cell
     }
     
@@ -60,10 +71,40 @@ class MyBeats: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            view.addSubview(activityView)
+            myBeatsTableView.allowsSelection = true
+            
+            LBBeat.removeByName(name: myBeatsTitles[indexPath.row], username: UserDefaults.standard.string(forKey: "username")!,token: keychain.get("token")!) { (response, error) in
+                if response == 200 && error == nil {
+                    self.myBeatsTitles.remove(at: indexPath.row)
+                    self.myBeatsTableView.reloadData()
+                    self.myBeatsTableView.allowsSelection = true
+                    self.activityView.removeFromSuperview()
+                }
+                else {
+                    let alert = UIAlertController(title: "Failure", message: "Something went wrong during deletion", preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: {
+                        self.activityView.removeFromSuperview()
+                        self.myBeatsTableView.allowsSelection = true
+                    })
+                }
+            }
+        }
+    }
+    
     @IBOutlet weak var myBeatsTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         myBeatsTableView.delegate = self
         myBeatsTableView.dataSource = self
         activityView.center = self.view.center

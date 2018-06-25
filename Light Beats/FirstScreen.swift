@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class FirstScreen: UIViewController {
     let keychain = KeychainSwift()
@@ -147,12 +148,27 @@ class FirstScreen: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        toggleTorch(on: false)
         lightBeatsLogo.layer.masksToBounds = true
         lightBeatsLogo.layer.cornerRadius = 10.0
         activityView.center = self.view.center
         activityView.color = UIColor.blue
         activityView.startAnimating()
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if UserDefaults.standard.bool(forKey: "shouldDeleteSession") {
+            LBSession.deleteSession(code: UserDefaults.standard.integer(forKey: "sessionCode"), token: keychain.get("token")!) { (response, error) in
+                if response == 200 && error == nil {
+                    UserDefaults.standard.set(false, forKey: "shouldDeleteSession")
+                    UserDefaults.standard.synchronize()
+                }
+                else {
+                    print("Problem deleting session")
+                }
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -170,5 +186,30 @@ class FirstScreen: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func toggleTorch(on: Bool) {
+        guard let device = AVCaptureDevice.default(for: AVMediaType.video)
+            else {return}
+        
+        if device.hasTorch {
+            do {
+                try device.lockForConfiguration()
+                
+                if on == true {
+                    device.torchMode = .on
+                    
+                } else {
+                    device.torchMode = .off
+                    
+                }
+                
+                device.unlockForConfiguration()
+            } catch {
+                print("Torch could not be used")
+            }
+        } else {
+            print("Torch is not available")
+        }
+    }
 
 }

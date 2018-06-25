@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Sign_Up: UIViewController {
+class Sign_Up: UIViewController, UITextFieldDelegate {
     let keychain = KeychainSwift()
     let activityView = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
     var token: String = ""
@@ -79,6 +79,7 @@ class Sign_Up: UIViewController {
                                 keychain.set(self.token, forKey: "token")
                                 keychain.set(self.tokenLong, forKey: "tokenLong")
                                 UserDefaults.standard.set(self.usernameField.text, forKey: "username")
+                                UserDefaults.standard.synchronize()
                                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                 let controller = storyboard.instantiateViewController(withIdentifier: UserDefaults.standard.string(forKey: "nextID")!)
                                 self.present(controller, animated: true, completion: nil)
@@ -128,7 +129,18 @@ class Sign_Up: UIViewController {
         activityView.center = self.view.center
         activityView.color = UIColor.blue
         activityView.startAnimating()
+        passwordField.isSecureTextEntry = true
+        usernameField.delegate = self
+        passwordField.delegate = self
+        emailField.delegate = self
         // Do any additional setup after loading the view.
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        usernameField.resignFirstResponder()
+        passwordField.resignFirstResponder()
+        emailField.resignFirstResponder()
+        return true
     }
 
     override func didReceiveMemoryWarning() {

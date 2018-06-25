@@ -13,6 +13,7 @@ class HostBeat: UIViewController {
     @IBOutlet weak var songNameLabel: UILabel!
     @IBOutlet weak var songArtistLabel: UILabel!
     @IBOutlet weak var playsLabel: UILabel!
+    let keychain = KeychainSwift()
     @IBOutlet weak var ratingStars: CosmosView!
     @IBOutlet weak var songStartTimeLabel: UILabel!
     @IBOutlet weak var beatLengthLabel: UILabel!
@@ -28,14 +29,17 @@ class HostBeat: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ratingStars.fillMode = StarFillMode.precise.rawValue
         beatNameLabel.text = Globals.beatNameDownload
         if Globals.songRelationDownload == false {
             songNameLabel.text = "Song Name: No Song Relation"
             songArtistLabel.text = "Song Artist: No Song Relation"
+            songStartTimeLabel.text = "Song Start Time: No Song Relation"
         }
         else {
             songNameLabel.text = "Song Name: \(Globals.songRelationNameDownload)"
             songArtistLabel.text = "Song Artist: \(Globals.songRelationArtistDownload)"
+            songStartTimeLabel.text = "Song Start Time: \(Globals.songStartTimeDownload) seconds"
         }
         playsLabel.text = "Plays: \(Globals.playsDownload)"
         if Globals.ratingDownload <= 0 {
@@ -44,14 +48,13 @@ class HostBeat: UIViewController {
         else {
             ratingStars.rating = Globals.ratingDownload
         }
-        songStartTimeLabel.text = "Song Start Time: \(Globals.songStartTimeDownload) seconds"
         var totalBeatLength = 0.00
         for length in Globals.beatLengthsDownload {
             totalBeatLength = totalBeatLength + length
         }
+        print(totalBeatLength)
         beatLengthLabel.text = "Beat Length: \(round(totalBeatLength)) seconds"
         createdByLabel.text = "Created By: \(Globals.createdByDownload)"
-        
 
         // Do any additional setup after loading the view.
     }
